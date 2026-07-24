@@ -1036,6 +1036,7 @@ export default function App() {
             { id: "audit",     label: "Audit Ledger",    icon: <FileText size={16} /> },
             { id: "isolation", label: "Device Isolation",icon: <Wifi size={16} /> },
             { id: "forensics", label: "Attack Forensics",icon: <ShieldAlert size={16} /> },
+            { id: "deception", label: "DeceptionNet",    icon: <Target size={16} /> },
             { id: "settings",  label: "Settings",        icon: <Settings size={16} /> },
           ].map(item => (
             <button key={item.id} onClick={() => setNav(item.id as NavPage)}
