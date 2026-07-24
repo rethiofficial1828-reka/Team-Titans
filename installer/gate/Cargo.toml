@@ -1,0 +1,17 @@
+[package]
+name = "fortichain-gate"
+version.workspace = true
+edition.workspace = true
+description = "Uninstall-gate CLI — prompts for 4×4 key parts before allowing MSI removal"
+
+[[bin]]
+name = "FortiChainGate"
+path = "src/main.rs"
+
+[dependencies]
+shared = { path = "../../shared" }
+argon2 = { workspace = true }
+zeroize = { workspace = true }
+
+[target.'cfg(windows)'.dependencies]
+windows = { workspace = true }

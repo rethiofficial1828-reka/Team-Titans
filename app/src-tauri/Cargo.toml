@@ -1,0 +1,38 @@
+[package]
+name = "FortiChain_V3"
+version.workspace = true
+edition.workspace = true
+description = "FortiChain.exe — Tauri desktop application"
+
+[[bin]]
+name = "FortiChain_V7"
+path = "src/main.rs"
+
+[dependencies]
+shared = { path = "../../shared" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true }
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+chrono = { workspace = true }
+rand = { workspace = true }
+argon2 = { workspace = true }
+aes-gcm = { workspace = true }
+sha3 = { workspace = true }
+hmac = { workspace = true }
+zeroize = { workspace = true }
+hex = { workspace = true }
+interprocess = { workspace = true }
+rusqlite = { workspace = true }
+
+tauri = { version = "2", features = ["devtools"] }
+tauri-plugin-dialog = "2"
+
+[target.'cfg(windows)'.dependencies]
+windows = { workspace = true }
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }

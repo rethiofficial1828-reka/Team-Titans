@@ -1,0 +1,26 @@
+[package]
+name = "shared"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+name = "shared"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+ts-rs = { workspace = true }
+thiserror = { workspace = true }
+chrono = { workspace = true }
+rand = { workspace = true }
+hex = { workspace = true }
+
+[dev-dependencies]
+serde_json = { workspace = true }
+
+[build-dependencies]
+# ts-rs export is triggered from build.rs
+
+[[test]]
+name = "error_codes_test"
+path = "tests/error_codes_test.rs"

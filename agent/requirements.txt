@@ -1,0 +1,4 @@
+# FortiChain Agent Dependencies
+# Google Antigravity SDK removed
+pydantic>=2.0
+asyncio

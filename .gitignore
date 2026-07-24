@@ -1,0 +1,47 @@
+# Rust
+/target
+**/*.rs.bk
+Cargo.lock
+
+# Node / Frontend
+node_modules/
+dist/
+.parcel-cache/
+
+# Tauri
+app/src-tauri/target/
+app/src-tauri/WixTools/
+*.app
+*.dmg
+*.deb
+*.rpm
+*.msi
+*.exe
+
+# Security — NEVER commit these
+*.pfx
+*.p12
+*.key
+*.pem
+*.db
+*.db-shm
+*.db-wal
+fortichain-demo.pfx
+
+# Environment / secrets
+.env
+.env.*
+*.secret
+
+# IDE / OS
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+
+# Generated TypeScript types (from ts-rs)
+app/src/bindings/
+
+# Logs
+*.log
+logs/

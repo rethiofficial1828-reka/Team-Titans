@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-start: #0A1F44;
+    --bg-end: #1C1C1E;
+    --accent: #00C2A8;
+    --alert: #FF3B30;
+    --text-main: #FFFFFF;
+    --text-muted: #A0A0A0;
+    --progress: #4CD964;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+    color: var(--text-main);
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .btn-action {
+    @apply relative overflow-hidden px-6 py-2.5 rounded text-white font-medium transition-all transform active:scale-95 flex items-center gap-2;
+  }
+
+  .btn-teal {
+    @apply bg-[#00C2A8] hover:bg-[#00a892] shadow-[0_4px_14px_0_rgba(0,194,168,0.39)];
+  }
+
+  .btn-gray {
+    @apply bg-white/10 hover:bg-white/20 border border-white/10;
+  }
+
+  /* Animations */
+  @keyframes radar-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .animate-radar {
+    animation: radar-spin 2s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+  .animate-marquee {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 15s linear infinite;
+  }
+
+  @keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 59, 48, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
+  }
+  .threat-pulse {
+    animation: pulse-red 2s infinite;
+  }
+
+  @keyframes shield-glow-pulse {
+    0%, 100% { 
+      filter: drop-shadow(0 0 5px rgba(0, 194, 168, 0.3));
+      transform: scale(1);
+    }
+    50% { 
+      filter: drop-shadow(0 0 25px rgba(0, 194, 168, 0.8));
+      transform: scale(1.03);
+    }
+  }
+  .animate-shield-glow {
+    animation: shield-glow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes slide-bounce {
+    0% {
+      transform: translateX(120%) scale(0.9);
+      opacity: 0;
+    }
+    50% {
+      transform: translateX(-10%) scale(1.05);
+      opacity: 0.8;
+    }
+    70% {
+      transform: translateX(5%) scale(0.98);
+      opacity: 0.9;
+    }
+    100% {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+  }
+  .animate-toast {
+    animation: slide-bounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+
+  @keyframes ripple {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+  .ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Custom Radar Gradient */
+  .radar-sweep {
+    background: conic-gradient(from 0deg, transparent 70%, rgba(0, 194, 168, 0.8) 100%);
+    border-radius: 50%;
+  }
+  
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow-xl;
+  }
+
+  /* Transitions.dev - Modal */
+  :root {
+    --modal-open-dur: 250ms;
+    --modal-close-dur: 150ms;
+    --modal-scale: 0.96;
+    --modal-scale-close: 0.96;
+    --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .t-modal-overlay {
+    opacity: 0;
+    transition: opacity var(--modal-open-dur) var(--modal-ease);
+  }
+  .t-modal-overlay.is-open {
+    opacity: 1;
+  }
+  .t-modal-overlay.is-closing {
+    opacity: 0;
+    transition-duration: var(--modal-close-dur);
+  }
+  .t-modal {
+    opacity: 0;
+    transform: scale(var(--modal-scale));
+    transition: opacity var(--modal-open-dur) var(--modal-ease), transform var(--modal-open-dur) var(--modal-ease);
+  }
+  .t-modal.is-open {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .t-modal.is-closing {
+    opacity: 0;
+    transform: scale(var(--modal-scale-close));
+    transition-duration: var(--modal-close-dur);
+  }
+}

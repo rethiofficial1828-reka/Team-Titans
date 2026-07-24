@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Product.wxs — WiX v4 installer source for FortiChain.
+  Installs:
+    - FortiChain.exe (Tauri app, runs as logged-in user)
+    - FortiChainSvc.exe (Windows Service, runs as LocalSystem)
+    - FortiChainGate.exe (uninstall gate, called before removal)
+  Writes:
+    - HKLM\SOFTWARE\FortiChain\AppExePath (path-pinning for IPC identity check)
+    - HKLM\SOFTWARE\FortiChain\KeyHash (Argon2id hash of combined key parts)
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package
+    Name="FortiChain"
+    Manufacturer="FortiChain Team"
+    Version="0.1.0"
+    UpgradeCode="E1A2B3C4-D5E6-F7A8-B9C0-D1E2F3A4B5C6">
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of FortiChain is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- Install directory -->
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="FortiChain">
+        <Directory Id="BinFolder" Name="bin" />
+      </Directory>
+    </StandardDirectory>
+
+    <!-- Feature: Core Application -->
+    <Feature Id="CoreApp" Title="FortiChain Application" Level="1">
+      <ComponentGroupRef Id="AppComponents" />
+      <ComponentGroupRef Id="ServiceComponents" />
+      <ComponentGroupRef Id="RegistryComponents" />
+    </Feature>
+
+    <!-- Application binaries -->
+    <ComponentGroup Id="AppComponents" Directory="BinFolder">
+      <Component Id="FortiChainExe">
+        <File Id="FortiChain.exe" Source="$(var.BinDir)\FortiChain.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="FortiChainGateExe">
+        <File Id="FortiChainGate.exe" Source="$(var.BinDir)\FortiChainGate.exe" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <!-- Windows Service -->
+    <ComponentGroup Id="ServiceComponents" Directory="BinFolder">
+      <Component Id="FortiChainSvcExe">
+        <File Id="FortiChainSvc.exe" Source="$(var.BinDir)\FortiChainSvc.exe" KeyPath="yes" />
+        <ServiceInstall
+          Id="InstallFortiChainSvc"
+          Name="FortiChainSvc"
+          DisplayName="FortiChain Security Service"
+          Description="FortiChain privileged security service — manages folder watchers, audit anchoring, and uninstall gate."
+          Type="ownProcess"
+          Start="auto"
+          Account="LocalSystem"
+          ErrorControl="normal" />
+        <ServiceControl
+          Id="StartFortiChainSvc"
+          Name="FortiChainSvc"
+          Start="install"
+          Stop="both"
+          Remove="uninstall"
+          Wait="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <!-- Registry entries for path-pinning and key hash -->
+    <ComponentGroup Id="RegistryComponents" Directory="BinFolder">
+      <Component Id="RegistryEntries">
+        <RegistryKey Root="HKLM" Key="SOFTWARE\FortiChain">
+          <RegistryValue Type="string" Name="AppExePath" Value="[BinFolder]FortiChain.exe" />
+          <RegistryValue Type="string" Name="InstallDir" Value="[INSTALLFOLDER]" />
+        </RegistryKey>
+      </Component>
+    </ComponentGroup>
+
+    <!-- Custom action: Uninstall Gate (runs before RemoveFiles) -->
+    <CustomAction
+      Id="RunUninstallGate"
+      FileRef="FortiChainGate.exe"
+      ExeCommand=""
+      Return="check"
+      Impersonate="no"
+      Execute="deferred" />
+
+    <InstallExecuteSequence>
+      <Custom Action="RunUninstallGate" Before="RemoveFiles">
+        <![CDATA[REMOVE="ALL"]]>
+      </Custom>
+    </InstallExecuteSequence>
+
+  </Package>
+</Wix>
