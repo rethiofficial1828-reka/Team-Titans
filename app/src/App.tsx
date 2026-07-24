@@ -15,28 +15,39 @@ const STYLES = `
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root {
-  --void:    #0D0E12;
-  --void2:   #16181D;
-  --panel:   #16181D;
-  --panel-2: #1E2028;
-  --panel-3: #2A2D35;
-  --line:    #373A44;
-  --line-lo: rgba(55, 58, 68, 0.6);
-  --hair:    #373A44;
-  --hair2:   rgba(55, 58, 68, 0.6);
-  --hi:      #F1F5F9;
+  --void:    #0B132B;
+  --void2:   #111C3A;
+  --panel:   #111C3A;
+  --panel-2: #1C2541;
+  --panel-3: #2B3A5A;
+  --line:    #3A506B;
+  --line-lo: rgba(58, 80, 107, 0.6);
+  --hair:    #3A506B;
+  --hair2:   rgba(58, 80, 107, 0.6);
+  --hi:      #F8FAFC;
   --lo:      #94A3B8;
   --lo2:     #64748B;
   --dim:     #475569;
-  --accent:  #E11D48;
-  --teal:    #E11D48;
-  --teal2:   #BE123C;
+  --accent:  #3B82F6;
+  --teal:    #3B82F6;
+  --teal2:   #2563EB;
   --locked:  #10B981;
-  --exposed: #F5A623;
-  --amber:   #F5A623;
-  --critical:#9F1239;
-  --red:     #9F1239;
+  --exposed: #F59E0B;
+  --amber:   #F59E0B;
+  --critical:#EF4444;
+  --red:     #EF4444;
   --green:   #10B981;
+}
+
+button, .card-punched, .stat-card, input, .nav-item, .drive-row {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+button:hover:not(:disabled), .card-punched:hover, .stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+}
+button:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 body {
@@ -53,8 +64,8 @@ body {
 .qfs-bg {
   background-color: var(--void2);
   background-image:
-    linear-gradient(rgba(225,29,72,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(225,29,72,.04) 1px, transparent 1px);
+    linear-gradient(rgba(59,130,246,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,.04) 1px, transparent 1px);
   background-size: 32px 32px;
   position: relative;
 }
@@ -62,7 +73,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(225,29,72,.12) 0%, transparent 70%);
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(59,130,246,.12) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -136,7 +147,7 @@ body {
   outline:none; transition:border-color .2s, box-shadow .2s;
 }
 .qfs-input::placeholder { color:var(--lo2); }
-.qfs-input:focus { border-color:var(--accent); box-shadow:0 0 0 2px rgba(225,29,72,.15); }
+.qfs-input:focus { border-color:var(--accent); box-shadow:0 0 0 2px rgba(59,130,246,.15); }
 .qfs-input:disabled { opacity:.45; cursor:not-allowed; }
 
 /* Primary button */
@@ -189,7 +200,7 @@ body {
 .stamp-locked { background:rgba(16,185,129,0.2); border:1px solid rgba(16,185,129,0.3); color:var(--locked); }
 .stamp-exposed { background:rgba(245,166,35,0.2); border:1px solid rgba(245,166,35,0.3); color:var(--exposed); }
 .stamp-critical { background:rgba(229,82,90,0.2); border:1px solid rgba(229,82,90,0.3); color:var(--critical); }
-.stamp-accent { background:rgba(225,29,72,0.2); border:1px solid rgba(225,29,72,0.3); color:var(--accent); }
+.stamp-accent { background:rgba(59,130,246,0.2); border:1px solid rgba(59,130,246,0.3); color:var(--accent); }
 .stamp-dim { background:rgba(100,116,139,0.2); border:1px solid rgba(100,116,139,0.3); color:var(--lo); }
 
 /* Nav item */
@@ -214,7 +225,7 @@ body {
 }
 .card-punched::after {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 12px;
-  background-image: repeating-linear-gradient(90deg, rgba(225,29,72,0.3) 0, rgba(225,29,72,0.3) 1px, transparent 1px, transparent 4px);
+  background-image: repeating-linear-gradient(90deg, rgba(59,130,246,0.3) 0, rgba(59,130,246,0.3) 1px, transparent 1px, transparent 4px);
   opacity: 0.7; pointer-events: none;
 }
 
@@ -225,7 +236,7 @@ body {
   transition:border-color .15s, background .15s;
 }
 .drive-row:hover:not(.disabled) { border-color:var(--hair2); background:var(--panel-2); }
-.drive-row.selected { border-color:var(--teal); box-shadow:0 0 0 3px rgba(225,29,72,.08); }
+.drive-row.selected { border-color:var(--teal); box-shadow:0 0 0 3px rgba(59,130,246,.08); }
 .drive-row.disabled { opacity:.45; cursor:not-allowed; }
 
 /* Chain node */
@@ -803,7 +814,7 @@ export default function App() {
               width: 52, height: 52, borderRadius: "50%",
               background: "var(--panel)", border: "2px solid var(--teal)",
               display: "flex", alignItems: "center", justifyContent: "center",
-              boxShadow: "0 0 0 5px rgba(225,29,72,.08), 0 0 20px rgba(225,29,72,.15)",
+              boxShadow: "0 0 0 5px rgba(59,130,246,.08), 0 0 20px rgba(59,130,246,.15)",
               marginBottom: 14,
             }}>
               <ChainMark size={26} />
@@ -824,7 +835,7 @@ export default function App() {
                 <div className="prog-bar" style={{
                   height: "100%", background: "var(--teal)",
                   width: step === 0 ? "33%" : "66%",
-                  boxShadow: "0 0 8px rgba(225,29,72,.6)",
+                  boxShadow: "0 0 8px rgba(59,130,246,.6)",
                   transition: "width .4s",
                 }} />
               </div>
@@ -997,7 +1008,7 @@ export default function App() {
               width: 34, height: 34, borderRadius: "50%",
               background: "var(--void)", border: "2px solid var(--teal)",
               display: "flex", alignItems: "center", justifyContent: "center",
-              boxShadow: "0 0 12px rgba(225,29,72,.2)", flexShrink: 0,
+              boxShadow: "0 0 12px rgba(59,130,246,.2)", flexShrink: 0,
             }}>
               <ChainMark size={17} />
             </div>
@@ -1096,7 +1107,7 @@ export default function App() {
                   {/* Drive status */}
                   <div className="card-punched" style={{ gap: 12 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <div style={{ padding: 6, background: "rgba(225,29,72,.1)", borderRadius: 6, display: "flex", color: "var(--teal)" }}>
+                      <div style={{ padding: 6, background: "rgba(59,130,246,.1)", borderRadius: 6, display: "flex", color: "var(--teal)" }}>
                         <Lock size={16} />
                       </div>
                     </div>
@@ -1113,7 +1124,7 @@ export default function App() {
                     <div className="section-header">SHA-256 Integrity</div>
                     <div className="mono" style={{ fontSize: 11, color: "var(--teal)", fontWeight: 700, marginTop: 6 }}>VERIFIED</div>
                     <div style={{ height: 3, background: "var(--hair)", borderRadius: 2, marginTop: 8, overflow: "hidden" }}>
-                      <div style={{ height: "100%", width: "85%", background: "var(--teal)", boxShadow: "0 0 6px rgba(225,29,72,.5)", borderRadius: 2, animation: "pulse-glow 2s infinite" }} />
+                      <div style={{ height: "100%", width: "85%", background: "var(--teal)", boxShadow: "0 0 6px rgba(59,130,246,.5)", borderRadius: 2, animation: "pulse-glow 2s infinite" }} />
                     </div>
                   </div>
                   {/* Isolated */}
@@ -1322,7 +1333,7 @@ export default function App() {
                 </div>
 
                 {chainOk !== null && (
-                  <div style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "12px 16px", background: chainOk ? "rgba(225,29,72,.08)" : "rgba(229,82,90,.08)", border: `1px solid ${chainOk ? "rgba(225,29,72,.25)" : "rgba(229,82,90,.25)"}`, borderRadius: 10, marginBottom: 20 }}>
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "12px 16px", background: chainOk ? "rgba(59,130,246,.08)" : "rgba(229,82,90,.08)", border: `1px solid ${chainOk ? "rgba(59,130,246,.25)" : "rgba(229,82,90,.25)"}`, borderRadius: 10, marginBottom: 20 }}>
                     {chainOk ? <Check size={15} color="var(--teal)" style={{ flexShrink: 0, marginTop: 1 }} /> : <ShieldAlert size={15} color="var(--red)" style={{ flexShrink: 0, marginTop: 1 }} />}
                     <div>
                       <div style={{ fontSize: 13, fontWeight: 700, color: chainOk ? "var(--teal)" : "var(--red)", marginBottom: 3 }}>
@@ -1340,7 +1351,7 @@ export default function App() {
                   {audit.map(entry => (
                     <div key={entry.id} style={{ position: "relative", paddingLeft: 24, paddingBottom: 20 }}>
                       {/* Chain dot */}
-                      <div style={{ position: "absolute", left: -7, top: 14, width: 12, height: 12, borderRadius: "50%", background: "var(--void)", border: "2px solid var(--teal)", boxShadow: "0 0 6px rgba(225,29,72,.3)" }} />
+                      <div style={{ position: "absolute", left: -7, top: 14, width: 12, height: 12, borderRadius: "50%", background: "var(--void)", border: "2px solid var(--teal)", boxShadow: "0 0 6px rgba(59,130,246,.3)" }} />
                       <div style={{ background: "var(--void)", border: "1.5px solid var(--hair)", borderRadius: 10, padding: "14px 16px" }}>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 6 }}>
                           <span className="mono" style={{ fontSize: 12, fontWeight: 700, color: "var(--hi)", letterSpacing: ".04em" }}>{entry.event}</span>
@@ -1559,3 +1570,4 @@ export default function App() {
     </div>
   );
 }
+
