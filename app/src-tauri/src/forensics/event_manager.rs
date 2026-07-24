@@ -39,6 +39,21 @@ pub fn spawn_worker(app: AppHandle, db_conn: DbConn) -> EventManagerHandle {
             let attack_type = threat_analyzer::classify(&raw);
             let (severity, risk_score) = risk_engine::score(&attack_type, &raw);
 
+            if severity == crate::forensics::models::Severity::Critical {
+                if let Some(pid) = raw.process_id {
+                    match crate::deception::containment::FrozenAttacker::contain(pid as u32) {
+                        Ok(frozen) => {
+                            eprintln!("[forensics] Successfully froze attacker process {}", pid);
+                            // Terminate immediately to stop ransomware completely
+                            frozen.terminate();
+                        }
+                        Err(e) => {
+                            eprintln!("[forensics] Failed to freeze attacker {}: {}", pid, e);
+                        }
+                    }
+                }
+            }
+
             let incident_id = incident_manager::resolve_incident(
                 &db_conn_clone,
                 &attack_type,
