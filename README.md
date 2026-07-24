@@ -473,7 +473,18 @@ timeline
 
 ## 15. Demo Links & Dashboard Preview
 
-### 🖥️ Interactive Web Preview & Dashboard Interface
+### ??? Live Ransomware Simulation Demo
+
+To demonstrate FortiChain's hardware-level Folder Lockdown mechanism to judges, a simulation script is available:
+
+1. Locate the **Ransomware_Simulator.ps1** script on the Desktop.
+2. Ensure the C:\Users\vboxuser\Desktop\startup folder is unlocked in the FortiChain UI.
+3. Run the script � it will successfully "encrypt" files (COMPROMISED!).
+4. **Activate Lockdown:** In FortiChain, toggle the protection ON for the startup folder.
+5. **Prove Defense:** Run the script again. FortiChain's ICACLS/Attrib engine will physically intercept the script, resulting in a green BLOCKED BY FORTICHAIN (Access Denied) message.
+6. Open the **Attack Forensics Dashboard** in FortiChain to view the automatically logged Suspicious File Activity incident!
+
+### ?? Interactive Web Preview & Dashboard Interface
 
 ![FortiChain Cyber Command Center Dashboard](dashboard_preview.png)
 
@@ -492,3 +503,4 @@ timeline
 3. [NIST Cybersecurity Framework (CSF v2.0)](https://nist.gov/cyberframework)
 4. [OWASP Top 10 Web & Application Security Standard](https://owasp.org)
 5. [Rust Programming Language Security Docs](https://www.rust-lang.org)
+
