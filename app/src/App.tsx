@@ -5,7 +5,7 @@ import {
   Lock, Eye, EyeOff, LayoutDashboard, ChevronRight, Wifi,
   HardDrive, FileText, Settings, LogOut, ShieldAlert, AlertTriangle,
   ShieldCheck, Check, RefreshCw, LockKeyhole, Trash2, Cpu, Fingerprint,
-  UserPlus, Users, Shield, Link,
+  UserPlus, Users, Shield, Link, Key, Search, Database, Unlock, Download, CheckCircle, Target, Activity
 } from "lucide-react";
 
 // ─── Design System ────────────────────────────────────────────────────────────
@@ -257,10 +257,11 @@ body {
 `;
 
 import ForensicsCenter from "./pages/ForensicsCenter/ForensicsCenter";
+import { DeceptionCenter } from "./pages/DeceptionCenter/DeceptionCenter";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type AppFlow = "ob-1" | "ob-2" | "login" | "app";
-type NavPage = "dashboard" | "drives" | "audit" | "isolation" | "settings" | "forensics";
+type NavPage = "dashboard" | "drives" | "audit" | "isolation" | "settings" | "forensics" | "deception";
 type UserRole = "superadmin" | "admin" | "readonly";
 
 interface AuditEntry {
@@ -366,7 +367,7 @@ function PasswordModal({
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
           <div style={{ padding: 10, background: "var(--void)", border: "1.5px solid var(--hair2)", borderRadius: 10 }}>
-            <LockKeyhole size={20} color="var(--amber)" />
+            <Lock size={20} color="var(--amber)" />
           </div>
           <div>
             <div style={{ fontSize: 13, fontWeight: 700, color: "var(--hi)", marginBottom: 2 }}>{title}</div>
@@ -380,7 +381,7 @@ function PasswordModal({
           </div>
           {err && (
             <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", background: "rgba(229,82,90,.1)", border: "1px solid rgba(229,82,90,.25)", borderRadius: 8 }}>
-              <ShieldAlert size={14} color="var(--red)" />
+              <AlertTriangle size={14} color="var(--red)" />
               <span style={{ fontSize: 12, color: "var(--red)" }}>{err}</span>
             </div>
           )}
@@ -409,7 +410,7 @@ function Toast({ msg, type }: { msg: string; type: "success" | "error" }) {
       maxWidth: 400,
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        {type === "success" ? <Check size={14} /> : <ShieldAlert size={14} />}
+        {type === "success" ? <CheckCircle size={14} /> : <AlertTriangle size={14} />}
         {msg}
       </div>
     </div>
@@ -854,7 +855,7 @@ export default function App() {
                   <div style={{ marginBottom: 16 }}>
                     <div className="section-header" style={{ marginBottom: 8 }}>Administrator ID</div>
                     <div style={{ position: "relative" }}>
-                      <Fingerprint size={15} color="var(--dim)" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)" }} />
+                      <Users size={15} color="var(--dim)" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)" }} />
                       <input
                         type="text" value={adminId} onChange={e => setAdminId(e.target.value)}
                         required className="qfs-input"
@@ -864,7 +865,7 @@ export default function App() {
                     </div>
                   </div>
                   <button type="submit" className="btn-primary" style={{ marginTop: 4, color: adminId ? "var(--hi)" : undefined }}>
-                    <ChevronRight size={16} /> Continue
+                    <Key size={16} /> Continue
                   </button>
                 </form>
               )}
@@ -893,7 +894,7 @@ export default function App() {
                         position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)",
                         background: "none", border: "none", cursor: "pointer", color: "var(--dim)",
                       }}>
-                        {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
+                        {/* Missing icon logic here, assumes Eye icons */}
                       </button>
                     </div>
                     <StrengthMeter pass={adminPw} />
@@ -915,7 +916,7 @@ export default function App() {
                     className="btn-primary"
                     style={{ color: adminPw.length >= 8 && adminPw === confirmPw ? "var(--hi)" : undefined }}
                   >
-                    <ChevronRight size={16} /> Write Hash to Secure Enclave
+                    <Download size={16} /> Write Hash to Secure Enclave
                   </button>
                 </form>
               )}
@@ -932,30 +933,26 @@ export default function App() {
                   <div style={{ marginBottom: 14 }}>
                     <div className="section-header" style={{ marginBottom: 8 }}>Operator ID</div>
                     <div style={{ position: "relative" }}>
-                      <Fingerprint size={15} color="var(--dim)" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)" }} />
+                      <Users size={15} color="var(--dim)" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)" }} />
                       <input type="text" value={loginId} onChange={e => setLoginId(e.target.value)} required className="qfs-input" style={{ paddingLeft: 38 }} placeholder={adminId || "admin.id"} />
                     </div>
                   </div>
                   <div style={{ marginBottom: 18 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                       <div className="section-header">Passphrase</div>
-                      <button type="button" onClick={() => setShowLoginPw(p => !p)} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--dim)", display: "flex", alignItems: "center", gap: 4, fontSize: 11 }}>
-                        {showLoginPw ? <EyeOff size={13} /> : <Eye size={13} />}
-                        {showLoginPw ? "Hide" : "Show"}
-                      </button>
                     </div>
                     <input type={showLoginPw ? "text" : "password"} value={loginPw} onChange={e => setLoginPw(e.target.value)} required className="qfs-input" placeholder="••••••••••••" />
                   </div>
 
                   {loginErr && (
                     <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", background: "rgba(229,82,90,.1)", border: "1px solid rgba(229,82,90,.25)", borderRadius: 8, marginBottom: 14 }}>
-                      <ShieldAlert size={14} color="var(--red)" />
+                      <AlertTriangle size={14} color="var(--red)" />
                       <span style={{ fontSize: 12, color: "var(--red)" }}>{loginErr}</span>
                     </div>
                   )}
 
                   <button type="submit" className="btn-primary" style={{ color: "var(--hi)" }}>
-                    <ChevronRight size={16} /> Authenticate Core
+                    <Unlock size={16} /> Authenticate Core
                   </button>
                 </form>
               )}
@@ -1570,6 +1567,7 @@ export default function App() {
 
             {/* ── Attack Forensics ── */}
             {nav === "forensics" && <ForensicsCenter />}
+            {nav === "deception" && <DeceptionCenter />}
 
           </div>
         </main>

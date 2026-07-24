@@ -504,3 +504,12 @@ To demonstrate FortiChain's hardware-level Folder Lockdown mechanism to judges, 
 4. [OWASP Top 10 Web & Application Security Standard](https://owasp.org)
 5. [Rust Programming Language Security Docs](https://www.rust-lang.org)
 
+
+7.  Kim, S.H. (2025). Ransomware Detection via Decoy Trap & File Traversal Entropy. J. Internet Services & Info Security.
+8.  Wang, S. et al. (2020). An Intelligent Deployment Policy for Deception Resources Based on Reinforcement Learning. IEEE Access, 8, 35792.
+9.  Gihavo, D. et al. (2024). Automated File Trap Selection Using Machine Learning for Early Detection of Ransomware. TechRxiv.
+10. von der Assen, J. et al. (2024). GuardFS: Integrated Detection & Mitigation. arXiv:2401.17917.
+11. RansomGuard (2024). Anti-Ransomware Minifilter Driver.
+12. diversenok (2021). Techniques for Suspending Processes on Windows.
+13. Kong, G. et al. (2023). Optimal Deception Asset Deployment: Nash Q-Learning. Applied Sciences 14(1), 357.
+14. Stamelos, I. et al. (2024). Active Honey Files for Ransomware Encryption Mitigation. IEEE CSR.

@@ -8,6 +8,7 @@ mod crypto;
 mod db;
 mod forensics;
 mod ipc_client;
+mod deception;
 
 use std::collections::HashMap;
 use std::sync::Mutex;
@@ -103,6 +104,9 @@ pub fn main() {
             forensics::commands::list_incidents,
             forensics::commands::get_incident_detail,
             forensics::commands::export_report,
+            // DeceptionNet
+            deception::get_deception_status,
+            deception::simulate_deception_trip,
         ])
         .setup(|app| {
             // Initialize SQLite database
@@ -126,6 +130,9 @@ pub fn main() {
             app.manage(db_conn);
             app.manage(commands::auth::SessionState {
                 store: Mutex::new(HashMap::new()),
+            });
+            app.manage(deception::DeceptionState {
+                learner: Mutex::new(deception::policy_engine::QLearner::new()),
             });
 
             tracing::info!("FortiChain app started, DB at {:?}", db_path);

@@ -5,7 +5,7 @@ edition.workspace = true
 description = "FortiChain.exe — Tauri desktop application"
 
 [[bin]]
-name = "FortiChain_V7"
+name = "FortiChain_V9"
 path = "src/main.rs"
 
 [dependencies]
