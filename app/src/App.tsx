@@ -15,28 +15,28 @@ const STYLES = `
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root {
-  --void:    #0f172a;
-  --void2:   #1e1b4b;
-  --panel:   #1e1b4b;
-  --panel-2: #312e81;
-  --panel-3: #4338ca;
-  --line:    #4f46e5;
-  --line-lo: rgba(79, 70, 229, 0.4);
-  --hair:    #4f46e5;
-  --hair2:   rgba(79, 70, 229, 0.4);
-  --hi:      #f8fafc;
-  --lo:      #c7d2fe;
-  --lo2:     #a5b4fc;
-  --dim:     #818cf8;
-  --accent:  #06b6d4; /* Cyan */
-  --teal:    #8b5cf6; /* Purple */
-  --teal2:   #ec4899; /* Pink */
-  --locked:  #10b981; /* Emerald */
-  --exposed: #f59e0b; /* Amber */
-  --amber:   #f59e0b;
-  --critical:#ef4444; /* Red */
-  --red:     #ef4444;
-  --green:   #10b981;
+  --void:    #0B0F19; /* Deep enterprise slate */
+  --void2:   #13192B; /* Panel background */
+  --panel:   #13192B; /* Primary panel */
+  --panel-2: #1C243B; /* Secondary panel */
+  --panel-3: #293450; /* Tertiary panel / hover */
+  --line:    #293450; /* Subtle border */
+  --line-lo: rgba(41, 52, 80, 0.4);
+  --hair:    #293450; /* Thin border */
+  --hair2:   rgba(41, 52, 80, 0.4);
+  --hi:      #F1F5F9; /* Slate 50 - High contrast text */
+  --lo:      #94A3B8; /* Slate 400 - Secondary text */
+  --lo2:     #64748B; /* Slate 500 - Tertiary text */
+  --dim:     #475569; /* Slate 600 - Muted text */
+  --accent:  #3B82F6; /* Professional Blue 500 */
+  --teal:    #6366F1; /* Enterprise Indigo 500 */
+  --teal2:   #8B5CF6; /* Violet 500 */
+  --locked:  #10B981; /* Emerald 500 - Success */
+  --exposed: #F59E0B; /* Amber 500 - Warning */
+  --amber:   #F59E0B;
+  --critical:#EF4444; /* Red 500 - Danger */
+  --red:     #EF4444;
+  --green:   #10B981;
 }
 
 button, .card-punched, .stat-card, input, .nav-item, .drive-row {
