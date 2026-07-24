@@ -1528,8 +1528,8 @@ export default function App() {
                   <div style={{ fontSize: 15, fontWeight: 700, color: "var(--hi)", marginBottom: 5 }}>Hardware Security</div>
                   <div style={{ fontSize: 13, color: "var(--lo)", marginBottom: 20 }}>Key binding to motherboard secure elements.</div>
                   {[
-                    { label: "TPM 2.0 Binding", desc: "Encrypt volume master keys inside TPM secure enclave.", val: tpm, set: setTpm },
-                    { label: "Secure Boot Gate", desc: "Require boot-chain signature verification before decryption.", val: secureBoot, set: setSecureBoot },
+                    { label: "TPM 2.0 Binding", desc: "Encrypt volume master keys inside TPM secure enclave.", val: tpm, set: setTpm, color: "var(--teal)" },
+                    { label: "Secure Boot Gate", desc: "Require boot-chain signature verification before decryption.", val: secureBoot, set: setSecureBoot, color: "var(--teal2)" },
                   ].map(r => (
                     <div key={r.label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "14px 0", borderBottom: "1px solid var(--hair)" }}>
                       <div>
@@ -1537,7 +1537,14 @@ export default function App() {
                         <div style={{ fontSize: 12, color: "var(--lo)" }}>{r.desc}</div>
                       </div>
                       <input type="checkbox" checked={r.val} className="toggle" disabled={isReadOnly}
-                        onChange={() => { if (!isReadOnly) { r.set(!r.val); log("SETTING_CHANGE", `${r.label} → ${!r.val ? "ON" : "OFF"}`); } }} />
+                        style={r.val ? { backgroundColor: r.color, borderColor: r.color } : {}}
+                        onChange={() => { 
+                          if (!isReadOnly) { 
+                            r.set(!r.val); 
+                            setToast({ msg: `Hardware Security updated: ${r.label} is now ${!r.val ? 'ENABLED' : 'DISABLED'}`, type: "success" });
+                            log("SETTING_CHANGE", `${r.label}   ${!r.val ? "ON" : "OFF"}`); 
+                          } 
+                        }} />
                     </div>
                   ))}
                 </div>
@@ -1570,5 +1577,6 @@ export default function App() {
     </div>
   );
 }
+
 
 
