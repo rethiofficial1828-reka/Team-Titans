@@ -15,28 +15,28 @@ const STYLES = `
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root {
-  --void:    #0B132B;
-  --void2:   #111C3A;
-  --panel:   #111C3A;
-  --panel-2: #1C2541;
-  --panel-3: #2B3A5A;
-  --line:    #3A506B;
-  --line-lo: rgba(58, 80, 107, 0.6);
-  --hair:    #3A506B;
-  --hair2:   rgba(58, 80, 107, 0.6);
-  --hi:      #F8FAFC;
-  --lo:      #94A3B8;
-  --lo2:     #64748B;
-  --dim:     #475569;
-  --accent:  #3B82F6;
-  --teal:    #3B82F6;
-  --teal2:   #2563EB;
-  --locked:  #10B981;
-  --exposed: #F59E0B;
-  --amber:   #F59E0B;
-  --critical:#EF4444;
-  --red:     #EF4444;
-  --green:   #10B981;
+  --void:    #0f172a;
+  --void2:   #1e1b4b;
+  --panel:   #1e1b4b;
+  --panel-2: #312e81;
+  --panel-3: #4338ca;
+  --line:    #4f46e5;
+  --line-lo: rgba(79, 70, 229, 0.4);
+  --hair:    #4f46e5;
+  --hair2:   rgba(79, 70, 229, 0.4);
+  --hi:      #f8fafc;
+  --lo:      #c7d2fe;
+  --lo2:     #a5b4fc;
+  --dim:     #818cf8;
+  --accent:  #06b6d4; /* Cyan */
+  --teal:    #8b5cf6; /* Purple */
+  --teal2:   #ec4899; /* Pink */
+  --locked:  #10b981; /* Emerald */
+  --exposed: #f59e0b; /* Amber */
+  --amber:   #f59e0b;
+  --critical:#ef4444; /* Red */
+  --red:     #ef4444;
+  --green:   #10b981;
 }
 
 button, .card-punched, .stat-card, input, .nav-item, .drive-row {
@@ -1570,4 +1570,5 @@ export default function App() {
     </div>
   );
 }
+
 
