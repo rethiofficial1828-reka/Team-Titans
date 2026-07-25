@@ -55,10 +55,8 @@ pub async fn get_audit_log(
     }).unwrap();
 
     let mut items = Vec::new();
-    for row in rows {
-        if let Ok(item) = row {
-            items.push(item);
-        }
+    for item in rows.flatten() {
+        items.push(item);
     }
     Ok(items)
 }
