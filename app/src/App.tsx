@@ -11,6 +11,8 @@ import Toast from "./components/Toast";
 import ChainMark from "./components/ChainMark";
 import PasswordModal from "./components/PasswordModal";
 import StrengthMeter from "./components/StrengthMeter";
+import ForensicsCenter from "./pages/ForensicsCenter/ForensicsCenter";
+import { DeceptionCenter } from "./pages/DeceptionCenter/DeceptionCenter";
 
 // ─── Design System ────────────────────────────────────────────────────────────
 const STYLES = `
@@ -260,8 +262,6 @@ body {
 .section-header { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--lo2); font-family:'IBM Plex Mono',monospace; }
 `;
 
-import ForensicsCenter from "./pages/ForensicsCenter/ForensicsCenter";
-import { DeceptionCenter } from "./pages/DeceptionCenter/DeceptionCenter";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type AppFlow = "ob-1" | "ob-2" | "login" | "app";
