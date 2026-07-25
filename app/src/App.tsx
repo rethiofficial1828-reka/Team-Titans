@@ -7,6 +7,10 @@ import {
   ShieldCheck, Check, RefreshCw, LockKeyhole, Trash2, Cpu, Fingerprint,
   UserPlus, Users, Shield, Link, Key, Search, Database, Unlock, Download, CheckCircle, Target, Activity
 } from "lucide-react";
+import Toast from "./components/Toast";
+import ChainMark from "./components/ChainMark";
+import PasswordModal from "./components/PasswordModal";
+import StrengthMeter from "./components/StrengthMeter";
 
 // ─── Design System ────────────────────────────────────────────────────────────
 const STYLES = `
@@ -283,139 +287,8 @@ function truncHash(h: string): string {
 }
 
 // ─── Sub-Components ───────────────────────────────────────────────────────────
-function StrengthMeter({ pass }: { pass: string }) {
-  if (!pass) return null;
-  let s = 0;
-  if (pass.length >= 8)  s++;
-  if (pass.length >= 12) s++;
-  if (/[A-Z]/.test(pass) && /[a-z]/.test(pass)) s++;
-  if (/\d/.test(pass)) s++;
-  if (/[^A-Za-z0-9]/.test(pass)) s++;
 
-  const tiers = [
-    { label: "Insufficient", color: "var(--red)" },
-    { label: "Weak",         color: "var(--red)" },
-    { label: "Fair",         color: "var(--amber)" },
-    { label: "Good",         color: "var(--teal)" },
-    { label: "Strong",       color: "var(--teal)" },
-    { label: "Enterprise",   color: "var(--green)" },
-  ];
-  const t = tiers[Math.min(s, 5)];
 
-  return (
-    <div style={{ marginTop: 10 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
-        <span className="mono" style={{ fontSize: 10, color: "var(--dim)", letterSpacing: ".08em" }}>ENTROPY LEVEL</span>
-        <span className="mono" style={{ fontSize: 10, fontWeight: 700, color: t.color }}>{t.label.toUpperCase()}</span>
-      </div>
-      <div style={{ display: "flex", gap: 3, height: 3, borderRadius: 2, overflow: "hidden" }}>
-        {[1, 2, 3, 4, 5].map(i => (
-          <div key={i} style={{ flex: 1, borderRadius: 2, background: i <= s ? t.color : "var(--hair2)", transition: "background .2s" }} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ChainMark({ size = 26, color = "var(--teal)" }: { size?: number; color?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-    </svg>
-  );
-}
-
-function PasswordModal({
-  title, subtitle, onConfirm, onCancel, adminPassword,
-}: {
-  title: string; subtitle: string;
-  onConfirm: () => void; onCancel: () => void;
-  adminPassword: string;
-}) {
-  const [pw, setPw] = useState("");
-  const [err, setErr] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setIsOpen(true), 10);
-    return () => clearTimeout(t);
-  }, []);
-
-  const triggerClose = (callback: () => void) => {
-    setIsClosing(true);
-    setTimeout(callback, 150);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (pw !== adminPassword) { setErr("Invalid administrator credentials."); return; }
-    triggerClose(onConfirm);
-  };
-
-  return (
-    <div className={`t-modal-overlay ${isOpen && !isClosing ? 'is-open' : ''} ${isClosing ? 'is-closing' : ''}`} style={{
-      position: "fixed", inset: 0, zIndex: 100,
-      background: "rgba(5,10,18,.85)", backdropFilter: "blur(6px)",
-      display: "flex", alignItems: "center", justifyContent: "center", padding: 24,
-    }}>
-      <div className={`t-modal ${isOpen && !isClosing ? 'is-open' : ''} ${isClosing ? 'is-closing' : ''}`} style={{
-        width: "100%", maxWidth: 420,
-        background: "var(--panel)", border: "1.5px solid var(--hair)",
-        borderRadius: 14, padding: 28, boxShadow: "0 24px 60px rgba(0,0,0,.6)",
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-          <div style={{ padding: 10, background: "var(--void)", border: "1.5px solid var(--hair2)", borderRadius: 10 }}>
-            <Lock size={20} color="var(--amber)" />
-          </div>
-          <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--hi)", marginBottom: 2 }}>{title}</div>
-            <div style={{ fontSize: 11, color: "var(--lo)" }}>{subtitle}</div>
-          </div>
-        </div>
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          <div>
-            <div className="section-header" style={{ marginBottom: 8 }}>Master passphrase</div>
-            <input type="password" value={pw} onChange={e => setPw(e.target.value)} className="qfs-input" placeholder="••••••••••••" required />
-          </div>
-          {err && (
-            <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", background: "rgba(229,82,90,.1)", border: "1px solid rgba(229,82,90,.25)", borderRadius: 8 }}>
-              <AlertTriangle size={14} color="var(--red)" />
-              <span style={{ fontSize: 12, color: "var(--red)" }}>{err}</span>
-            </div>
-          )}
-          <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", marginTop: 4 }}>
-            <button type="button" onClick={() => triggerClose(onCancel)} className="btn-ghost">Cancel</button>
-            <button type="submit" className="btn-teal">Confirm</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-}
-
-// ─── Toast Component ──────────────────────────────────────────────────────────
-function Toast({ msg, type }: { msg: string; type: "success" | "error" }) {
-  return (
-    <div style={{
-      position: "fixed", top: 20, right: 20, zIndex: 200,
-      padding: "12px 20px", borderRadius: 10,
-      background: type === "success" ? "rgba(79,216,122,.15)" : "rgba(229,82,90,.15)",
-      border: `1.5px solid ${type === "success" ? "rgba(79,216,122,.4)" : "rgba(229,82,90,.4)"}`,
-      color: type === "success" ? "var(--green)" : "var(--red)",
-      fontSize: 12, fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace",
-      boxShadow: "0 8px 32px rgba(0,0,0,.4)",
-      animation: "toast-in .3s ease both",
-      maxWidth: 400,
-    }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        {type === "success" ? <CheckCircle size={14} /> : <AlertTriangle size={14} />}
-        {msg}
-      </div>
-    </div>
-  );
-}
 
 // ─── Main App ─────────────────────────────────────────────────────────────────
 export default function App() {
