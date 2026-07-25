@@ -14,7 +14,7 @@ pub fn score(attack_type: &str, event: &RawAttackEvent) -> (Severity, u8) {
         _ => 30,
     };
 
-    if event.process_name.as_deref().map_or(false, |p| p.eq_ignore_ascii_case("unknown")) {
+    if event.process_name.as_deref().is_some_and(|p| p.eq_ignore_ascii_case("unknown")) {
         score_val += 15;
     }
     if event.executable_path.is_none() {
