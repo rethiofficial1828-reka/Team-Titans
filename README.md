@@ -513,3 +513,8 @@ To demonstrate FortiChain's hardware-level Folder Lockdown mechanism to judges, 
 12. diversenok (2021). Techniques for Suspending Processes on Windows.
 13. Kong, G. et al. (2023). Optimal Deception Asset Deployment: Nash Q-Learning. Applied Sciences 14(1), 357.
 14. Stamelos, I. et al. (2024). Active Honey Files for Ransomware Encryption Mitigation. IEEE CSR.
+
+ 
+ # #   W o r k s p a c e   I n f o 
+ P r o j e c t   s u c c e s s f u l l y   r e l o c a t e d   t o   r o o t   s t r u c t u r e .  
+ 
