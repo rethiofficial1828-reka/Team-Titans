@@ -57,9 +57,9 @@ impl FrozenAttacker {
             
             let _ = CloseHandle(proc);
             
-            if ok.is_err() {
+            if let Err(e) = ok {
                 let _ = CloseHandle(job);
-                return Err(format!("Freeze failed: {}", ok.unwrap_err()));
+                return Err(format!("Freeze failed: {}", e));
             }
             Ok(FrozenAttacker { job, pid })
         }
