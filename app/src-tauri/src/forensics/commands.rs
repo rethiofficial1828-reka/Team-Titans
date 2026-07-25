@@ -66,10 +66,8 @@ pub async fn list_incidents(
         .map_err(|e| e.to_string())?;
 
     let mut rows = Vec::new();
-    for r in rows_iter {
-        if let Ok(val) = r {
-            rows.push(val);
-        }
+    for val in rows_iter.flatten() {
+        rows.push(val);
     }
 
     let mut count_query = String::from("SELECT COUNT(*) FROM incidents WHERE 1=1");
@@ -161,10 +159,8 @@ pub async fn get_incident_detail(
         .map_err(|e| e.to_string())?;
 
     let mut logs = Vec::new();
-    for l in logs_iter {
-        if let Ok(val) = l {
-            logs.push(val);
-        }
+    for val in logs_iter.flatten() {
+        logs.push(val);
     }
 
     let mut stmt_timeline = conn
@@ -183,10 +179,8 @@ pub async fn get_incident_detail(
         .map_err(|e| e.to_string())?;
 
     let mut timeline = Vec::new();
-    for t in timeline_iter {
-        if let Ok(val) = t {
-            timeline.push(val);
-        }
+    for val in timeline_iter.flatten() {
+        timeline.push(val);
     }
 
     let mut stmt_recs = conn
@@ -204,10 +198,8 @@ pub async fn get_incident_detail(
         .map_err(|e| e.to_string())?;
 
     let mut recs = Vec::new();
-    for r in recs_iter {
-        if let Ok(val) = r {
-            recs.push(val);
-        }
+    for val in recs_iter.flatten() {
+        recs.push(val);
     }
 
     Ok(json!({
