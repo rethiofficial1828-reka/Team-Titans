@@ -112,21 +112,19 @@ pub async fn verify_audit_chain(
         ))
     }).unwrap();
 
-    for row in rows {
-        if let Ok((id, action, detail, stored_hash)) = row {
-            let entry_json = format!("{}{}", action, detail);
-            let computed = compute_chain_hash(b"dummy_key", &prev_hash, &entry_json)?;
-            
-            if computed != stored_hash {
-                return Ok(ChainVerificationResult {
-                    intact: false,
-                    mismatch_at: Some(id),
-                    entries_checked,
-                });
-            }
-            prev_hash = computed;
-            entries_checked += 1;
+    for (id, action, detail, stored_hash) in rows.flatten() {
+        let entry_json = format!("{}{}", action, detail);
+        let computed = compute_chain_hash(b"dummy_key", &prev_hash, &entry_json)?;
+        
+        if computed != stored_hash {
+            return Ok(ChainVerificationResult {
+                intact: false,
+                mismatch_at: Some(id),
+                entries_checked,
+            });
         }
+        prev_hash = computed;
+        entries_checked += 1;
     }
 
     Ok(ChainVerificationResult {
@@ -158,11 +156,9 @@ pub async fn export_audit_log(
 
     let mut out = String::new();
     out.push_str("--- FortiChain Cryptographic Audit Ledger ---\n\n");
-    for row in rows {
-        if let Ok(line) = row {
-            out.push_str(&line);
-            out.push('\n');
-        }
+    for line in rows.flatten() {
+        out.push_str(&line);
+        out.push('\n');
     }
     
     std::fs::write(&path, out).map_err(|e| e.to_string())?;
