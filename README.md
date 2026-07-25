@@ -1,4 +1,4 @@
-# <div align="center">🛡️ FortiChain</div>
+# <div align="center"> FortiChain</div>
 
 <div align="center">
 
@@ -24,7 +24,7 @@
 
 ---
 
-## 📑 Table of Contents
+##  Table of Contents
 
 - [1. Project Title and Team Details](#1-project-title-and-team-details)
 - [2. Problem Statement and Solution](#2-problem-statement-and-solution)
@@ -55,7 +55,7 @@
 
 <div align="center">
 
-### **👥 Team Information**
+### ** Team Information**
 
 | Role | Name | Core Engineering Focus |
 | :---: | :---: | :--- |
@@ -72,13 +72,13 @@
 
 ### Problem Statement
 Modern cyber threats have evolved beyond standard signature-based viruses. Zero-day ransomware families (such as LockBit, BlackCat, and custom memory-only scripts) execute batch file renames and drive encryptions in seconds before traditional antiviruses issue warnings. Furthermore:
-- ⚠️ **Log Erasure:** Attackers flush Windows Event Logs (`wevtutil cl`) upon gaining administrative tokens.
-- ⚠️ **Resource Bloat:** Enterprise EDR agents consume over 500MB RAM, causing severe system slowdowns.
-- ⚠️ **System Misconfigurations:** Standard users accidentally apply corrupted ACL rules when attempting manual drive protection.
+-  **Log Erasure:** Attackers flush Windows Event Logs (`wevtutil cl`) upon gaining administrative tokens.
+-  **Resource Bloat:** Enterprise EDR agents consume over 500MB RAM, causing severe system slowdowns.
+-  **System Misconfigurations:** Standard users accidentally apply corrupted ACL rules when attempting manual drive protection.
 
 ### Solution Overview
 **FortiChain** bridges the gap by providing a zero-trust endpoint protection shield built in memory-safe **Rust** and **Tauri v2**:
-1. **Dynamic NTFS Rule Injection:** Enforces exact Win32 `icacls` Deny rules with safe `(R,D)` flags to prevent copying, moving, renaming, or deleting protected files.
+1. **namic NTFS Rule Injection:** Enforces exact Win32 `icacls` Deny rules with safe `(R,D)` flags to prevent copying, moving, renaming, or deleting protected files.
 2. **SHA3-512 Hashed Ledger:** Records all security operations into a cryptographically chained, immutable SQLite log.
 3. **Attack Forensics & Threat Intelligence Center:** Non-blocking async event pipeline that correlates security events into incident IDs (`FC-YYYY-NNNNNN`), computes SHA3-512 hash chains, and generates real-time threat recommendations.
 4. **ChaCha20Poly1305 Encryption:** Authenticated encryption for sensitive folders with key derivation via Argon2id.
@@ -110,27 +110,27 @@ graph TD
 
 ```
 +-----------------------------------------------------------------------------------+
-|  [🛡️] REAL-TIME FILE SYSTEM LOCKING                                              |
+|  [] REAL-TIME FILE SYSTEM LOCKING                                              |
 |  Direct Win32 ACL injection with (R,D) flags preventing copy, move, or rename.    |
 +-----------------------------------------------------------------------------------+
-|  [🔬] ATTACK FORENSICS & THREAT INTELLIGENCE CENTER                              |
+|  [] ATTACK FORENSICS & THREAT INTELLIGENCE CENTER                              |
 |  Async worker thread, FC-YYYY-NNNNNN incident correlation & SHA3 hash ledger.    |
 +-----------------------------------------------------------------------------------+
-|  [🔐] CHACHA20-POLY1305 ENCRYPTION                                                |
+|  [] CHACHA20-POLY1305 ENCRYPTION                                                |
 |  Military-grade authenticated encryption derived via Argon2id key stretching.     |
 +-----------------------------------------------------------------------------------+
-|  [🧩] SHAMIR'S SECRET SHARING                                                     |
+|  [] SHAMIR'S SECRET SHARING                                                     |
 |  M-of-N secret shard key reconstruction for administrative disaster recovery.     |
 +-----------------------------------------------------------------------------------+
-|  [🛡️] SECURITY ADVISOR AGENT                                                      |
+|  [] SECURITY ADVISOR AGENT                                                      |
 |  Autonomous security advisor analyzing system events in real-time.               |
 +-----------------------------------------------------------------------------------+
 ```
 
-- 🔑 **Single-Prompt UAC Self-Elevation:** Checks admin elevation on startup via `net session` and requests `RunAs` elevation once to prevent loop windows.
-- 👥 **Role-Based Access Control (RBAC):** Enforces `SuperAdmin`, `Admin`, and `ReadOnly` access tiers across UI and Tauri IPC calls.
-- ✨ **Transitions-Dev Motion System:** 60fps compositor-friendly modal entrance/exit lifecycle animations (`isOpen` & `isClosing`).
-- ⚡ **Emergency Lockdown Mode:** Instant one-click UI trigger for hardware peripheral bus isolation alerts.
+-  **Single-Prompt UAC Self-Elevation:** Checks admin elevation on startup via `net session` and requests `RunAs` elevation once to prevent loop windows.
+-  **Role-Based Access Control (RBAC):** Enforces `SuperAdmin`, `Admin`, and `ReadOnly` access tiers across UI and Tauri IPC calls.
+-  **Transitions-Dev Motion System:** 60fps compositor-friendly modal entrance/exit lifecycle animations (`isOpen` & `isClosing`).
+-  **Emergency Lockdown Mode:** Instant one-click UI trigger for hardware peripheral bus isolation alerts.
 
 ---
 
@@ -154,17 +154,17 @@ graph TD
 
 ```mermaid
 graph TB
-    User["👤 Security Operator"] <--> Frontend["🖥️ React Cyber Command Center UI"]
-    Frontend <-->|"Tauri IPC Async Bridge"| Backend["🦀 Rust Core System Engine"]
-    Backend <--> Auth["🔐 RBAC Session & Key Handler"]
-    Backend <--> NTFSEngine["🛡️ Win32 icacls / attrib ACL Engine"]
-    Backend <--> ForensicsEngine["🔬 Attack Forensics & Threat Intel Pipeline"]
-    Backend <--> CryptoEngine["🔑 ChaCha20 / Argon2 Cryptographic Suite"]
-    Backend <--> DB[("💾 SQLite Database: fortichain.db")]
-    Backend <--> Agent["🛡️ Python Security Advisor"]
+    User[" Security Operator"] <--> Frontend[" React Cyber Command Center UI"]
+    Frontend <-->|"Tauri IPC Async Bridge"| Backend[" Rust Core System Engine"]
+    Backend <--> Auth[" RBAC Session & Key Handler"]
+    Backend <--> NTFSEngine[" Win32 icacls / attrib ACL Engine"]
+    Backend <--> ForensicsEngine[" Attack Forensics & Threat Intel Pipeline"]
+    Backend <--> CryptoEngine[" ChaCha20 / Argon2 Cryptographic Suite"]
+    Backend <--> DB[(" SQLite Database: fortichain.db")]
+    Backend <--> Agent[" Python Security Advisor"]
     
     subgraph "Windows OS Kernel Boundary"
-        NTFSEngine -->|"Injects icacls Deny (R,D) Rules"| FileSystem["📁 Windows File System & Drives"]
+        NTFSEngine -->|"Injects icacls Deny (R,D) Rules"| FileSystem[" Windows File System & Drives"]
     end
 
     style User fill:#0A1F44,color:#fff
@@ -181,26 +181,26 @@ graph TB
 
 ```mermaid
 flowchart TD
-    Start["🚀 Launch FortiChain"] --> UACCheck{"Elevated Privilege?"}
-    UACCheck -- "No" --> ElevationPrompt["⚡ Prompt Win32 UAC Elevation"]
+    Start[" Launch FortiChain"] --> UACCheck{"Elevated Privilege?"}
+    UACCheck -- "No" --> ElevationPrompt[" Prompt Win32 UAC Elevation"]
     ElevationPrompt --> Start
-    UACCheck -- "Yes" --> InitDB[("💾 Init SQLite and SHA3 Audit Ledger")]
-    InitDB --> AuthScreen["🔑 Operator Login / Authentication"]
-    AuthScreen --> Dashboard["🖥️ Open Cyber Command Center"]
+    UACCheck -- "Yes" --> InitDB[(" Init SQLite and SHA3 Audit Ledger")]
+    InitDB --> AuthScreen[" Operator Login / Authentication"]
+    AuthScreen --> Dashboard[" Open Cyber Command Center"]
     
     Dashboard --> SelectAction{"Operator Action"}
-    SelectAction -- "Lock Folder" --> ACLEngine["🛡️ Execute icacls Deny R,D and attrib +R"]
-    SelectAction -- "Encrypt Volume" --> ChaChaEngine["🔐 ChaCha20Poly1305 Stream Encryption"]
-    SelectAction -- "Query Advisor" --> AdvisorAgent["🛡️ Launch Security Advisor Loop"]
+    SelectAction -- "Lock Folder" --> ACLEngine[" Execute icacls Deny R,D and attrib +R"]
+    SelectAction -- "Encrypt Volume" --> ChaChaEngine[" ChaCha20Poly1305 Stream Encryption"]
+    SelectAction -- "Query Advisor" --> AdvisorAgent[" Launch Security Advisor Loop"]
     
-    ACLEngine --> ForensicsPipeline["🔬 Submit Event to Forensics Queue"]
+    ACLEngine --> ForensicsPipeline[" Submit Event to Forensics Queue"]
     ChaChaEngine --> ForensicsPipeline
     AdvisorAgent --> ForensicsPipeline
     
     ForensicsPipeline --> Classification["Classify & Risk Score 0-100"]
     Classification --> IncidentMint["Mint Incident FC-YYYY-NNNNNN"]
-    IncidentMint --> AuditLog["📜 Append SHA3-512 Immutable Log"]
-    AuditLog --> End["✅ System Secure State"]
+    IncidentMint --> AuditLog[" Append SHA3-512 Immutable Log"]
+    AuditLog --> End[" System Secure State"]
 ```
 
 ### Sequence Diagram
@@ -236,49 +236,49 @@ sequenceDiagram
 
 ```
 fortichain/
-├── agent/                         # Python Security Advisor Agent
-│   ├── venv/                      # Python 3.14 Virtual Environment
-│   ├── main.py                    # Security Advisor Agent Script
-│   └── requirements.txt           # Python Agent Dependencies
-├── app/                           # Main Desktop Application Package
-│   ├── index.html                 # HTML Shell & Fonts
-│   ├── package.json               # Node.js & React Dependencies
-│   ├── vite.config.ts             # Vite Bundler Settings
-│   ├── src/                       # React Frontend Source
-│   │   ├── App.tsx                # Cyber Command Center UI Shell
-│   │   ├── index.css              # Glassmorphic Styling System & CSS Variables
-│   │   ├── hooks/                 # Custom React Hooks
-│   │   │   └── useForensics.ts    # Forensics IPC & Live Event Listener
-│   │   ├── lib/                   # TypeScript Type Interfaces
-│   │   │   └── forensics-types.ts # Attack Incident & SHA3 Hash Types
-│   │   └── pages/                 # Application Page Views
-│   │       └── ForensicsCenter/
-│   │           └── ForensicsCenter.tsx # Attack Forensics & Threat Intel UI
-│   └── src-tauri/                 # Rust Native Backend
-│       ├── Cargo.toml             # Rust Crate Workspace & Dependencies
-│       └── src/
-│           ├── main.rs            # Application Entry & UAC Self-Elevation
-│           ├── commands/          # Tauri IPC Command Handlers
-│           │   ├── auth.rs        # RBAC Session Verification
-│           │   ├── audit.rs       # SHA3-512 Audit Ledger Logging
-│           │   └── folders.rs     # icacls (R,D) & attrib Protection
-│           ├── db/                # SQLite Initialization & Migrations
-│           │   └── migrations/
-│           │       └── 003_forensics_schema.sql # Forensics DB Migration
-│           └── forensics/         # Attack Forensics Subsystem
-│               ├── mod.rs         # Subsystem Module Export
-│               ├── models.rs      # Event & Log Record Definitions
-│               ├── hash.rs        # SHA3-512 Chained Hash Engine
-│               ├── threat_analyzer.rs # Event Classification Engine
-│               ├── risk_engine.rs # Risk Scoring (0-100) & Severity
-│               ├── incident_manager.rs # Incident ID Minting (FC-YYYY-NNNNNN)
-│               ├── timeline_engine.rs # Step History Chain
-│               ├── recommendation_engine.rs # Action Recommendations
-│               ├── statistics_engine.rs # Aggregated Counters
-│               ├── db.rs          # Forensic SQLite Operations
-│               ├── event_manager.rs # Async Worker Queue (tokio::mpsc)
-│               └── commands.rs    # Read-only Tauri IPC Commands
-└── README.md                      # Production Documentation
+ agent/                         # Python Security Advisor Agent
+    venv/                      # Python 3.14 Virtual Environment
+    main.py                    # Security Advisor Agent Script
+    requirements.txt           # Python Agent Dependencies
+ app/                           # Main Desktop Application Package
+    index.html                 # HTML Shell & Fonts
+    package.json               # Node.js & React Dependencies
+    vite.config.ts             # Vite Bundler Settings
+    src/                       # React Frontend Source
+       App.tsx                # Cyber Command Center UI Shell
+       index.css              # Glassmorphic Styling System & CSS Variables
+       hooks/                 # Custom React Hooks
+          useForensics.ts    # Forensics IPC & Live Event Listener
+       lib/                   # TypeScript Type Interfaces
+          forensics-types.ts # Attack Incident & SHA3 Hash Types
+       pages/                 # Application Page Views
+           ForensicsCenter/
+               ForensicsCenter.tsx # Attack Forensics & Threat Intel UI
+    src-tauri/                 # Rust Native Backend
+        Cargo.toml             # Rust Crate Workspace & Dependencies
+        src/
+            main.rs            # Application Entry & UAC Self-Elevation
+            commands/          # Tauri IPC Command Handlers
+               auth.rs        # RBAC Session Verification
+               audit.rs       # SHA3-512 Audit Ledger Logging
+               folders.rs     # icacls (R,D) & attrib Protection
+            db/                # SQLite Initialization & Migrations
+               migrations/
+                   003_forensics_schema.sql # Forensics DB Migration
+            forensics/         # Attack Forensics Subsystem
+                mod.rs         # Subsystem Module Export
+                models.rs      # Event & Log Record Definitions
+                hash.rs        # SHA3-512 Chained Hash Engine
+                threat_analyzer.rs # Event Classification Engine
+                risk_engine.rs # Risk Scoring (0-100) & Severity
+                incident_manager.rs # Incident ID Minting (FC-YYYY-NNNNNN)
+                timeline_engine.rs # Step History Chain
+                recommendation_engine.rs # Action Recommendations
+                statistics_engine.rs # Aggregated Counters
+                db.rs          # Forensic SQLite Operations
+                event_manager.rs # Async Worker Queue (tokio::mpsc)
+                commands.rs    # Read-only Tauri IPC Commands
+ README.md                      # Production Documentation
 ```
 
 ---
@@ -440,10 +440,10 @@ FortiChain aligns with leading international cybersecurity frameworks:
 
 | Metric | Target Standard | FortiChain Benchmark | Status |
 | :--- | :--- | :--- | :--- |
-| **Idle Memory Consumption** | &lt; 150 MB | **38.4 MB** | 🚀 74% Superior |
-| **Startup Launch Time** | &lt; 2.5 seconds | **0.62 seconds** | 🚀 75% Superior |
-| **ACL Rule Injection Latency**| &lt; 500 ms | **42 ms** | 🚀 91% Superior |
-| **SHA3-512 Hash Computation**| &lt; 10 ms/file | **1.2 ms/file** | 🚀 88% Superior |
+| **Idle Memory Consumption** | &lt; 150 MB | **38.4 MB** |  74% Superior |
+| **Startup Launch Time** | &lt; 2.5 seconds | **0.62 seconds** |  75% Superior |
+| **ACL Rule Injection Latency**| &lt; 500 ms | **42 ms** |  91% Superior |
+| **SHA3-512 Hash Computation**| &lt; 10 ms/file | **1.2 ms/file** |  88% Superior |
 
 ---
 
@@ -479,7 +479,7 @@ To demonstrate FortiChain's hardware-level Folder Lockdown mechanism to judges, 
 
 1. Locate the **Ransomware_Simulator.ps1** script on the Desktop.
 2. Ensure the C:\Users\vboxuser\Desktop\startup folder is unlocked in the FortiChain UI.
-3. Run the script � it will successfully "encrypt" files (COMPROMISED!).
+3. Run the script  it will successfully "encrypt" files (COMPROMISED!).
 4. **Activate Lockdown:** In FortiChain, toggle the protection ON for the startup folder.
 5. **Prove Defense:** Run the script again. FortiChain's ICACLS/Attrib engine will physically intercept the script, resulting in a green BLOCKED BY FORTICHAIN (Access Denied) message.
 6. Open the **Attack Forensics Dashboard** in FortiChain to view the automatically logged Suspicious File Activity incident!
@@ -513,3 +513,4 @@ To demonstrate FortiChain's hardware-level Folder Lockdown mechanism to judges, 
 12. diversenok (2021). Techniques for Suspending Processes on Windows.
 13. Kong, G. et al. (2023). Optimal Deception Asset Deployment: Nash Q-Learning. Applied Sciences 14(1), 357.
 14. Stamelos, I. et al. (2024). Active Honey Files for Ransomware Encryption Mitigation. IEEE CSR.
+
